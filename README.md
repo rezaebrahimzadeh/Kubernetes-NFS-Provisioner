@@ -1,4 +1,4 @@
-***Kubernetes NFS Subdir External Provisioner***
+***Kubernetes NFS External Provisioner***
 
 
 
