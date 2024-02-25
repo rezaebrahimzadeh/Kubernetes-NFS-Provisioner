@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-pod
+  namespace: nfs-provisioner
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ubuntu
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+
+  template:
+    metadata:
+      labels:
+        app: ubuntu
+    spec:
+      containers:
+      - name: test-pod
+        image: ubuntu:focal
+        command: ["sleep", "infinity"]
+        volumeMounts:
+        - name: test-claim
+          mountPath: /mnt
+      volumes:
+      - name: test-claim
+        persistentVolumeClaim:
+          claimName: test-claim
+
